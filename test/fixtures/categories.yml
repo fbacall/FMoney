@@ -3,9 +3,9 @@
 one:
   title: MyString
   description: MyText
-  parent_id: one
+  #parent_id: one
 
 two:
   title: MyString
   description: MyText
-  parent_id: two
+  #parent_id: two

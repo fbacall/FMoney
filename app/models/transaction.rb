@@ -3,6 +3,8 @@ require 'csv'
 class Transaction < ApplicationRecord
   belongs_to :source, optional: true
 
+  validates :description, uniqueness: { scope: [:value, :balance, :date] }
+
   acts_as_list
 
   def follows_on?
@@ -15,6 +17,10 @@ class Transaction < ApplicationRecord
 
   def duplicate
     self.class.where(balance: balance, date: date, description: description, value: value)
+  end
+
+  def find_previous
+    self.class.where(balance: pre_balance).where('date <= ?', date).first
   end
 
   def self.from_csv(io)
@@ -32,5 +38,18 @@ class Transaction < ApplicationRecord
       )
     end
     t
+  end
+
+  def self.bulk_insert(transactions)
+    transactions = [transactions] if transactions.is_a?(Transaction)
+    a = transactions.to_a
+    return a if a.empty?
+
+    a.sort_by(&:date).map do |t|
+      previous = t.find_previous
+      t.position = (previous.position + 1) if previous
+      t.save
+      t
+    end
   end
 end
