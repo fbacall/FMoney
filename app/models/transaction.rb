@@ -1,7 +1,13 @@
 require 'csv'
 
 class Transaction < ApplicationRecord
-  belongs_to :source
+  belongs_to :source, optional: true
+
+  acts_as_list
+
+  def follows_on?
+    higher_item && (higher_item.balance == pre_balance)
+  end
 
   def pre_balance
     balance - value

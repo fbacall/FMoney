@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  date: 2020-08-01
+  transaction_type: MyString
+  description: MyText
+  value: 
+  balance: 
+  account_name: MyString
+  account_number: MyString
+
+two:
+  user_id: 
+  date: 2020-08-01
+  transaction_type: MyString
+  description: MyText
+  value: 
+  balance: 
+  account_name: MyString
+  account_number: MyString
