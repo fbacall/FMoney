@@ -59,6 +59,12 @@ class Transaction < ApplicationRecord
     end
   end
 
+  def self.sourcify(transactions)
+    Rule.includes(:source).order(:priority).each do |rule|
+      rule.match(transactions)
+    end
+  end
+
   private
 
   def self.from_natwest_row(row)

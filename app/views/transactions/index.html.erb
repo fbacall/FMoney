@@ -23,7 +23,7 @@
         <td><%= transaction.description %></td>
         <td><%= number_to_currency(transaction.value) %></td>
         <td><%= number_to_currency(transaction.balance) %></td>
-        <td><%= transaction.source %></td>
+        <td><%= transaction.source&.title %></td>
         <td><%= link_to 'Show', transaction %></td>
         <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
         <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>

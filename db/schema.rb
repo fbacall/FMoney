@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_09_152900) do
+ActiveRecord::Schema.define(version: 2020_08_21_093858) do
 
   create_table "categories", force: :cascade do |t|
     t.string "title"
@@ -27,12 +27,12 @@ ActiveRecord::Schema.define(version: 2020_08_09_152900) do
     t.text "regex"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "priority", default: 0
     t.index ["source_id"], name: "index_rules_on_source_id"
   end
 
   create_table "sources", force: :cascade do |t|
     t.string "title"
-    t.text "regex"
     t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
