@@ -3,6 +3,8 @@ require 'csv'
 class Transaction < ApplicationRecord
   belongs_to :source, optional: true
 
+  before_validation :fix_date
+
   validates :description, uniqueness: { scope: [:value, :balance, :date] }
 
   acts_as_list
@@ -75,5 +77,13 @@ class Transaction < ApplicationRecord
         value: (row[3]&.strip == '-' ? "-#{row[4]&.strip}" : row[3]&.strip)&.tr('£,',''),
         balance: row[5]&.strip&.tr('£,','')
     )
+  end
+
+  def fix_date
+    if date.year < 70
+      self.date = self.date + 2000.years
+    elsif date.year < 100
+      self.date = self.date + 1900.years
+    end
   end
 end

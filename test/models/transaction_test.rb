@@ -24,4 +24,18 @@ class TransactionTest < ActiveSupport::TestCase
     assert_equal 4, i2.reload.position
     assert_equal 5, i3.reload.position
   end
+
+  test 'fixes dates' do
+    t1 = Transaction.new(date: '12-aug-99', balance: '100.00', value: '2.00', description: 'McDonalds refund')
+    t1.valid?
+    assert_equal 1999, t1.date.year
+
+    t2 = Transaction.new(date: '12-aug-21', balance: '100.00', value: '2.00', description: 'McDonalds refund')
+    t2.valid?
+    assert_equal 2021, t2.date.year
+
+    t3 = Transaction.new(date: '12-aug-1980', balance: '100.00', value: '2.00', description: 'McDonalds refund')
+    t3.valid?
+    assert_equal 1980, t3.date.year
+  end
 end
