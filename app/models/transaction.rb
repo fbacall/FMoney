@@ -40,6 +40,12 @@ class Transaction < ApplicationRecord
     t
   end
 
+  def self.from_paste(text)
+    text.split(/[\r\n\t]+/).each_slice(6).map do |row|
+      from_natwest_row(row)
+    end
+  end
+
   def self.bulk_insert(transactions)
     transactions = [transactions] if transactions.is_a?(Transaction)
     a = transactions.to_a
@@ -51,5 +57,17 @@ class Transaction < ApplicationRecord
       t.save
       t
     end
+  end
+
+  private
+
+  def self.from_natwest_row(row)
+    new(
+        date: row[0]&.strip,
+        transaction_type: row[1]&.strip,
+        description: row[2]&.strip.sub(/\A'/, ''),
+        value: (row[3]&.strip == '-' ? "-#{row[4]&.strip}" : row[3]&.strip)&.tr('£,',''),
+        balance: row[5]&.strip&.tr('£,','')
+    )
   end
 end
