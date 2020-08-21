@@ -1,4 +1,34 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= @source.title %></h1>
+
+<p>
+  <%= pluralize(@source.transactions.count,  "transaction") %>
+</p>
+<p>
+  <% total = @source.total %>
+  <% if total > 0 %>
+    <strong>Total income: </strong><span><%= number_to_money(total) %></span>
+  <% else %>
+    <strong>Total spend: </strong><span><%= number_to_money(total) %></span>
+  <% end %>
+</p>
+<p>
+  <strong>Average transaction: </strong><span><%= number_to_money(total / @source.transactions.count) %></span>
+</p>
+<p>
+  <strong>First transaction: </strong><span><%= @source.earliest_transaction.date %></span>
+</p>
+<p>
+  <strong>Last transaction: </strong><span><%= @source.latest_transaction.date %></span>
+</p>
+
+Match rules:
+<ul>
+  <% @source.rules.each do |rule| %>
+  <li><%= rule.field %>: <code><%= rule.regex %></code></li>
+  <% end %>
+</ul>
+
 <%= link_to 'Edit', edit_source_path(@source) %> |
 <%= link_to 'Back', sources_path %>

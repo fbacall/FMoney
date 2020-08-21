@@ -4,7 +4,12 @@ class SourcesController < ApplicationController
   # GET /sources
   # GET /sources.json
   def index
-    @sources = Source.all
+    @sources = Source.includes(:category)
+    if params[:filter]
+      @sources = @sources.all
+    else
+      @sources = @sources.where('title LIKE ?', "#{params[:filter]}*")
+    end
   end
 
   # GET /sources/1

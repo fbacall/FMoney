@@ -4,7 +4,12 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.where("date > ?", 30.days.ago)
+    if params[:source_id]
+      @source = Source.find(params[:source_id])
+      @transactions = @source.transactions
+    else
+      @transactions = Transaction.where("date > ?", 90.days.ago)
+    end
   end
 
   # GET /transactions/1

@@ -21,9 +21,14 @@
         <td><%= transaction.date %></td>
         <td><%= transaction.transaction_type %></td>
         <td><%= transaction.description %></td>
-        <td><%= number_to_currency(transaction.value) %></td>
-        <td><%= number_to_currency(transaction.balance) %></td>
-        <td><%= transaction.source&.title %></td>
+        <td><%= number_to_money(transaction.value) %></td>
+        <td><%= number_to_money(transaction.balance) %></td>
+        <td>
+          <% if transaction.source %>
+            <%= link_to(transaction.source.title, transaction.source) %>
+          <% else %>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', transaction %></td>
         <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
         <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -2,10 +2,8 @@
 
 one:
   title: MyString
-  regex: MyString
   category_id: one
 
 two:
   title: MyString
-  regex: MyString
   category_id: two
