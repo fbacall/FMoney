@@ -11,6 +11,20 @@
     </div>
   <% end %>
 
+  <div class="form-group">
+    <label>
+      Title
+      <%= form.text_field(:title) %>
+    </label>
+  </div>
+
+  <h3>Rules</h3>
+  <%= form.fields_for(:rules) do |match_form| %>
+    <%= render partial: 'rule_fields', locals: { f: match_form } %>
+  <% end %>
+
+  <%= link_to_add_fields 'Add Rule', form, :rules %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

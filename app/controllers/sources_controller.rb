@@ -74,6 +74,6 @@ class SourcesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def source_params
-      params.fetch(:source, {})
+      params.fetch(:source, {}).permit(:title, rules_attributes: [:id, :field, :regex, :_destroy])
     end
 end

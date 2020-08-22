@@ -3,7 +3,7 @@ class Source < ApplicationRecord
   has_many :transactions
   has_many :rules
 
-  accepts_nested_attributes_for :rules
+  accepts_nested_attributes_for :rules, allow_destroy: true
 
   def colour
     category.colour

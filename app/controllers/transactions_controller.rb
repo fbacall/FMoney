@@ -1,15 +1,11 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
+  before_action :set_transactions, only: [:index]
+  before_action :set_pagination, only: [:index]
 
   # GET /transactions
   # GET /transactions.json
   def index
-    if params[:source_id]
-      @source = Source.find(params[:source_id])
-      @transactions = @source.transactions
-    else
-      @transactions = Transaction.where("date > ?", 90.days.ago)
-    end
   end
 
   # GET /transactions/1
@@ -68,13 +64,29 @@ class TransactionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_transaction
-      @transaction = Transaction.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_transaction
+    @transaction = Transaction.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def transaction_params
-      params.fetch(:transaction, {})
+  # Only allow a list of trusted parameters through.
+  def transaction_params
+    params.fetch(:transaction, {})
+  end
+
+  def set_transactions
+    if params[:source_id]
+      @source = Source.find(params[:source_id])
+      @transactions = @source.transactions
+    else
+      @transactions = Transaction.all
     end
+  end
+
+  def set_pagination
+    @page = params[:page]&.to_i || 1
+    @per_page = params[:per_page]&.to_i || 30
+    @max_page = @transactions.count / @per_page
+    @transactions = @transactions.order(date: :desc).page(@page).per(@per_page)
+  end
 end

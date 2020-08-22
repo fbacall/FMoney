@@ -1,0 +1,5 @@
+<div class="match-rule-form">
+  <%= f.select(:field, Rule::MATCH_FIELDS) %>
+  <%= f.text_field(:regex, placeholder: 'regex') %>
+  <label><%= f.check_box(:_destroy) %> Destroy</label>
+</div>

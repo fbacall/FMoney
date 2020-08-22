@@ -1,6 +1,7 @@
 class Rule < ApplicationRecord
+  MATCH_FIELDS = %w(description transaction_type).freeze
   belongs_to :source
-  validates :field, inclusion: { in: %w(description transaction_type) }
+  validates :field, inclusion: { in: MATCH_FIELDS }
 
   def match(transactions)
     puts "Applying rule: #{regex} (#{field}) for #{source&.title}"
@@ -10,5 +11,9 @@ class Rule < ApplicationRecord
         transaction.source = source
       end
     end
+  end
+
+  def field= f
+    super(f.to_sym)
   end
 end
