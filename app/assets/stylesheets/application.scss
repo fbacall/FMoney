@@ -19,44 +19,68 @@
 
 body {
   font-family: sans-serif;
-  color: #333
+  color: #333;
+  background: grey;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #3887c2;
+  text-decoration: none;
+  &:visited {
+    color: #3887c2;
+  }
+
+  &:hover, &:active {
+    color: #1f4866;
+    text-decoration: none;
+  }
 }
 
 .wrapper {
-
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 header {
   position: fixed;
-  height: 2em;
+  height: 45px;
   top: 0;
   left: 0;
-  line-height: 1.5em;
-  background-color: #fafafa;
+  background-color: #eee;
   width: 100%;
   border-bottom: 1px solid #ccc;
 
   div.logo, a {
     float: left;
     font-size: larger;
-    line-height: 1.5em;
-    padding: 0 10px;
-    height: 100%;
+    padding: 10px 15px;
+    line-height: 24px
   }
 
   div.logo {
-    text-shadow: 0 2px black;
-    background-color: #8fa5cb;
+    //text-shadow: 0 2px black;
+    background-color: #1f4866;
     color: white;
+    font-style: italic;
   }
 
   a {
     text-decoration: none;
+    display: block;
+    border-right: 1px solid #ccc;
+    background: #fafafa;
+
+    &:hover {
+      background: white;
+    }
   }
 }
 
 .content {
-  margin-top: 3em;
+  padding: 55px 25px 25px 25px;
+  background: white;
 }
 
 table.transactions {
@@ -64,7 +88,7 @@ table.transactions {
 }
 
 .money.negative {
-  color: #992727;
+  color: #e73535;
 }
 
 .flexible {
@@ -81,5 +105,31 @@ table.transactions {
 }
 
 .pagination {
-  text-align: center;
+  text-align: right;
+}
+
+th {
+  text-align: left;
+}
+
+.winter {
+  background-color: #c3e8f1;
+}
+
+.autumn {
+  background-color: #efcfc0;
+}
+
+.summer {
+  background-color: #efe9c0;
+}
+
+.spring {
+  background-color: #c8e5b6;
+}
+
+.year-end td {
+  background-color: #eee;
+  font-weight: bold;
+  border-bottom: 12px solid white;
 }

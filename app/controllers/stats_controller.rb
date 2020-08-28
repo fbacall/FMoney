@@ -1,6 +1,6 @@
 class StatsController < ApplicationController
 
-  def monthly_stats
+  def monthly
     ts = Transaction.excluding_savings.order(position: :asc)
     monthly = ts.group_by { |t| t.date.strftime('%Y-%m') }
     @stats = monthly.transform_values do |ts|

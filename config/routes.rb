@@ -6,5 +6,9 @@ Rails.application.routes.draw do
     resources :transactions, only: :index
   end
 
-  get 'monthly' => 'stats#monthly_stats'
+  resources :stats, only: [] do
+    collection do
+      get :monthly
+    end
+  end
 end

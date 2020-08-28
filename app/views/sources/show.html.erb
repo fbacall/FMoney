@@ -42,7 +42,7 @@
 
   <div class="right-side">
     <h2>Transactions</h2>
-    <%= render partial: 'transactions/table', locals: { transactions: @source.transactions.order(:date).last(20) } %>
+    <%= render partial: 'transactions/table', locals: { transactions: @source.transactions.order(date: :desc).first(20), hide_source: true } %>
     <%= link_to('Show all', source_transactions_path(@source)) %>
   </div>
 </div>

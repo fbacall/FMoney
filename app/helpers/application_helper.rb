@@ -1,7 +1,9 @@
 module ApplicationHelper
   def number_to_money(number, options = {})
     options[:unit] ||= '£'
-    number_to_currency(number, options)
+    content_tag(:span, class: "money #{number < 0 ? 'negative' : 'positive'}") do
+      number_to_currency(number, options)
+    end
   end
 
   def link_to_add_fields(name = nil, f = nil, association = nil, options = nil, html_options = nil, &block)

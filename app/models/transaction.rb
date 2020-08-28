@@ -77,7 +77,7 @@ class Transaction < ApplicationRecord
     new(
         date: row[0]&.strip,
         transaction_type: row[1]&.strip,
-        description: row[2]&.strip.sub(/\A'/, ''),
+        description: row[2]&.strip&.sub(/\A'/, ''),
         value: (row[3]&.strip == '-' ? "-#{row[4]&.strip}" : row[3]&.strip)&.tr('£,',''),
         balance: row[5]&.strip&.tr('£,','')
     )
