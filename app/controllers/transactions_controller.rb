@@ -84,9 +84,15 @@ class TransactionsController < ApplicationController
   end
 
   def set_pagination
-    @page = params[:page]&.to_i || 1
-    @per_page = params[:per_page]&.to_i || 30
-    @max_page = @transactions.count / @per_page
-    @transactions = @transactions.order(date: :desc).page(@page).per(@per_page)
+    if params[:month]
+      first_day = Date.parse("#{params[:month]}-01")
+      last_day = (first_day >> 1) - 1
+      @transactions = @transactions.order(date: :desc).where(date: first_day..last_day).page(1).per(99999)
+    else
+      @page = params[:page]&.to_i || 1
+      @per_page = params[:per_page]&.to_i || 30
+      @max_page = @transactions.count / @per_page
+      @transactions = @transactions.order(date: :desc).page(@page).per(@per_page)
+    end
   end
 end

@@ -9,6 +9,10 @@ class Transaction < ApplicationRecord
 
   acts_as_list
 
+  def self.excluding_savings
+    where(source_id: nil).or(where.not(source: Category.find_by_title('Savings').source_ids))
+  end
+
   def follows_on?
     higher_item && (higher_item.balance == pre_balance)
   end

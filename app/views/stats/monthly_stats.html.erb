@@ -1,0 +1,66 @@
+<h1>Monthly Stats</h1>
+<% months = @stats.keys.count %>
+<% total_inc = @stats.values.sum { |v| v[:income] } %>
+<% total_spe = @stats.values.sum { |v| v[:spend] } %>
+<% total_net = total_inc + total_spe %>
+<% recent_total_inc = @stats.values[-12..-1].sum { |v| v[:income] } %>
+<% recent_total_spe = @stats.values[-12..-1].sum { |v| v[:spend] } %>
+<% recent_period = @stats.keys[-12..-1].length %>
+<% recent_total_net = recent_total_inc + recent_total_spe %>
+
+<div class="flexible">
+  <div class="left-side">
+    Period: <%= months/12 %> years, <%= months % 12 %> months
+    <table>
+      <tr>
+        <th></th>
+        <th>Income</th>
+        <th>Spend</th>
+        <th>Balance</th>
+      </tr>
+    <tr>
+      <td><strong>TOTAL</strong></td>
+      <td><%= number_to_money total_inc %></td>
+      <td><%= number_to_money total_spe %></td>
+      <td style="color: <%= total_net < 0 ? 'red' : 'black' -%>;"><%= number_to_money total_net %></td>
+    </tr>
+    <tr>
+      <td><strong>Mean</strong></td>
+      <td><%= number_to_money total_inc / months %></td>
+      <td><%= number_to_money total_spe / months %></td>
+      <% mean_net = total_net / months %>
+      <td style="color: <%= mean_net < 0 ? 'red' : 'black' -%>;"><%= number_to_money mean_net %></td>
+    </tr>
+    <tr>
+      <td><strong>Recent mean</strong></td>
+      <td><%= number_to_money recent_total_inc / recent_period %></td>
+      <td><%= number_to_money recent_total_spe / recent_period %></td>
+      <% recent_mean_net = recent_total_net / recent_period %>
+      <td style="color: <%= recent_mean_net < 0 ? 'red' : 'black' -%>;"><%= number_to_money recent_mean_net %></td>
+    </tr>
+    </table>
+  </div>
+  <div class="right-side">
+    <table class="transactions">
+      <thead>
+      <tr>
+        <th>Month</th>
+        <th>Income</th>
+        <th>Spend</th>
+        <th>Balance</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @stats.each do |month, stats| %>
+        <tr>
+          <td><%= month %></td>
+          <td><%= number_to_money stats[:income] %></td>
+          <td><%= number_to_money stats[:spend] %></td>
+          <td style="color: <%= stats[:net] < 0 ? 'red' : 'black' -%>;"><%= number_to_money stats[:net] %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

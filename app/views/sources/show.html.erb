@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @source.title %></h1>
+<h1>
+  <%= @source.title %>
+  <% if @source.category %>
+    <small>(<%= @source.category.title %>)</small>
+  <% end %>
+</h1>
 
 <div class="flexible">
   <div class="left-side">
