@@ -18,6 +18,13 @@
     </label>
   </div>
 
+  <div class="form-group">
+    <label>
+      Category
+      <%= form.select(:category_id, category_options_for_select) %>
+    </label>
+  </div>
+
   <h3>Rules</h3>
   <%= form.fields_for(:rules) do |match_form| %>
     <%= render partial: 'rule_fields', locals: { f: match_form } %>
