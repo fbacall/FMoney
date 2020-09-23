@@ -1,0 +1,10 @@
+<h1>Import Transactions - CSV</h1>
+
+<%= render partial: 'transactions/table', locals: { transactions: @transactions } %>
+
+<%= form_tag(parse_csv_transactions_path, local: true) do %>
+  <%= hidden_field_tag(:csv, params[:csv], rows: 10) %>
+  <%= hidden_field_tag(:confirm, 'yesplease') %>
+
+  <%= submit_tag('Confirm') %>
+<% end %>

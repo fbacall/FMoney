@@ -1,0 +1,10 @@
+<h1>Import Transactions - Paste</h1>
+
+<%= render partial: 'transactions/table', locals: { transactions: @transactions } %>
+
+<%= form_tag(parse_paste_transactions_path, local: true) do %>
+  <%= hidden_field_tag(:paste, params[:paste], rows: 10) %>
+  <%= hidden_field_tag(:confirm, 'yesplease') %>
+
+  <%= submit_tag('Confirm') %>
+<% end %>

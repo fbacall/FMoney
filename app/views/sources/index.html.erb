@@ -5,6 +5,11 @@
 <table>
   <thead>
     <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Recent avg.</th>
+      <th>12 months Total</th>
+      <th>Total</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -12,6 +17,12 @@
   <tbody>
     <% @sources.each do |source| %>
       <tr>
+        <td><%= link_to(source.title, source) %></td>
+        <td><%= source.category&.title %></td>
+        <td><%= number_to_money(source.transactions.where('date > ?', 3.months.ago).sum(:value) / 3) %></td>
+        <td><%= number_to_money source.transactions.where('date > ?', 1.year.ago).sum(:value) %></td>
+        <td><%= number_to_money source.transactions.sum(:value) %></td>
+        <td></td>
         <td><%= link_to 'Show', source %></td>
         <td><%= link_to 'Edit', edit_source_path(source) %></td>
         <td><%= link_to 'Destroy', source, method: :delete, data: { confirm: 'Are you sure?' } %></td>

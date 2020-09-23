@@ -6,9 +6,9 @@ class SourcesController < ApplicationController
   def index
     @sources = Source.includes(:category)
     if params[:filter]
-      @sources = @sources.all
-    else
       @sources = @sources.where('title LIKE ?', "#{params[:filter]}*")
+    else
+      @sources = @sources.all
     end
   end
 
