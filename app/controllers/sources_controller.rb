@@ -59,6 +59,7 @@ class SourcesController < ApplicationController
   # DELETE /sources/1
   # DELETE /sources/1.json
   def destroy
+    raise 'no'
     @source.destroy
     respond_to do |format|
       format.html { redirect_to sources_url, notice: 'Source was successfully destroyed.' }

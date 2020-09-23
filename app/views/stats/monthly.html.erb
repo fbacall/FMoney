@@ -63,10 +63,10 @@
           <td><%= number_to_money stats[:spend] %></td>
           <td style="color: <%= stats[:net] < 0 ? 'red' : 'black' -%>;"><%= number_to_money stats[:net] %></td>
         </tr>
-        <% year_end = month.end_with?('12') || index == @stats.keys.count - 1 %>
+        <% year_end = month.end_with?('01') || index == @stats.keys.count - 1 %>
         <% if year_end %>
           <tr<%= ' class="year-end"'.html_safe if year_end -%>>
-            <td>Year total</td>
+            <td><%= month.split('-').first %> total</td>
             <td><%= number_to_money year_total_inc %></td>
             <td><%= number_to_money year_total_spe %></td>
             <% year_total_net = year_total_inc + year_total_spe %>
