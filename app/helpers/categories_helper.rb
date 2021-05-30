@@ -1,6 +1,6 @@
 module CategoriesHelper
-  def category_options_for_select
-    options_for_select(traverse_cat_tree(Category.tree))
+  def category_options_for_select(selected = nil)
+    options_for_select(traverse_cat_tree(Category.tree), selected)
   end
 
   private

@@ -1,8 +1,20 @@
 <header>
   <div class="wrapper">
-    <div class="logo">FMoney</div>
+    <div class="logo">
+      <%= link_to 'FMoney', root_path %>
+    </div>
     <%= link_to 'Transactions', transactions_path %>
     <%= link_to 'Sources', sources_path %>
     <%= link_to 'Monthly Stats', monthly_stats_path %>
+
+    <div class="info">
+      <% if current_user %>
+        <%= link_to logout_path, method: :delete do %>
+          Logged in: <%= current_user.id %>
+        <% end %>
+      <% else %>
+        <%= link_to 'Log In', '/auth/developer', method: :post %>
+      <% end %>
+    </div>
   </div>
 </header>

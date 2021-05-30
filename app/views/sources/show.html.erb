@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>
   <%= @source.title %>
   <% if @source.category %>
@@ -21,13 +19,18 @@
       <% end %>
     </p>
     <p>
-      <strong>Average transaction: </strong><span><%= number_to_money(total / @source.transactions.count) %></span>
+      <strong>Average transaction: </strong><span><%= number_to_money(@source.transactions.any? ? total / @source.transactions.count : 0) %></span>
     </p>
     <p>
-      <strong>First transaction: </strong><span><%= @source.earliest_transaction.date %></span>
+      <strong>First transaction: </strong>
+      <% if @source.earliest_transaction %>
+        <span><%= @source.earliest_transaction.date %></span>
+      <% end %>
     </p>
     <p>
-      <strong>Last transaction: </strong><span><%= @source.latest_transaction.date %></span>
+      <% if @source.latest_transaction %>
+        <strong>Last transaction: </strong><span><%= @source.latest_transaction.date %></span>
+      <% end %>
     </p>
 
     <strong>Match rules:</strong>

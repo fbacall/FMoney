@@ -32,6 +32,10 @@ gem 'acts_as_list'
 
 gem 'kaminari'
 
+gem 'omniauth'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
+gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
+
 #gem 'rails-i18n', '~> 6.0.0' # For 6.0.0 or higher
 
 group :development, :test do

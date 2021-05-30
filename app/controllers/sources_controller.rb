@@ -4,7 +4,7 @@ class SourcesController < ApplicationController
   # GET /sources
   # GET /sources.json
   def index
-    @sources = Source.includes(:category)
+    @sources = current_user.sources.includes(:category)
     if params[:filter]
       @sources = @sources.where('title LIKE ?', "#{params[:filter]}*")
     else
@@ -19,7 +19,7 @@ class SourcesController < ApplicationController
 
   # GET /sources/new
   def new
-    @source = Source.new
+    @source = current_user.sources.new
   end
 
   # GET /sources/1/edit
@@ -29,7 +29,7 @@ class SourcesController < ApplicationController
   # POST /sources
   # POST /sources.json
   def create
-    @source = Source.new(source_params)
+    @source = current_user.sources.new(source_params)
 
     respond_to do |format|
       if @source.save
@@ -70,11 +70,11 @@ class SourcesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_source
-      @source = Source.find(params[:id])
+      @source = current_user.sources.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def source_params
-      params.fetch(:source, {}).permit(:title, rules_attributes: [:id, :field, :regex, :_destroy])
+      params.fetch(:source, {}).permit(:title, :category_id, rules_attributes: [:id, :field, :regex, :_destroy])
     end
 end

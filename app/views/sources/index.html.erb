@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Sources</h1>
 
 <table>
@@ -23,7 +21,6 @@
         <td><%= number_to_money source.transactions.where('date > ?', 1.year.ago).sum(:value) %></td>
         <td><%= number_to_money source.transactions.sum(:value) %></td>
         <td></td>
-        <td><%= link_to 'Show', source %></td>
         <td><%= link_to 'Edit', edit_source_path(source) %></td>
         <td><%= link_to 'Destroy', source, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

@@ -1,6 +1,7 @@
 require 'csv'
 
 class Transaction < ApplicationRecord
+  belongs_to :user
   belongs_to :source, optional: true
 
   before_validation :fix_date

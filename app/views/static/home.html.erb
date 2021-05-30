@@ -1,0 +1,8 @@
+You ain't logged in, foo.
+
+<ul>
+  <% unless Rails.env.production? %>
+    <li><%= link_to 'Developer Login', '/auth/developer', method: :post %></li>
+  <% end %>
+  <li><%= link_to 'GitHub Login', '/auth/github', method: :post %></li>
+</ul>

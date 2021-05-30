@@ -1,4 +1,5 @@
 class Source < ApplicationRecord
+  belongs_to :user
   belongs_to :category
   has_many :transactions
   has_many :rules
@@ -10,7 +11,7 @@ class Source < ApplicationRecord
   end
 
   def total
-    transactions.sum(:value)
+    transactions.sum(:value) || 0
   end
 
   def earliest_transaction

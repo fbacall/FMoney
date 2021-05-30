@@ -52,14 +52,14 @@ header {
   width: 100%;
   border-bottom: 1px solid #ccc;
 
-  div.logo, a {
+  a {
     float: left;
     font-size: larger;
     padding: 10px 15px;
     line-height: 24px
   }
 
-  div.logo {
+  div.logo a {
     //text-shadow: 0 2px black;
     background-color: #1f4866;
     color: white;
@@ -75,6 +75,11 @@ header {
     &:hover {
       background: white;
     }
+  }
+
+  div.info {
+    float: right;
+    border-left: 1px solid #ccc;
   }
 }
 
@@ -132,4 +137,26 @@ th {
   background-color: #eee;
   font-weight: bold;
   border-bottom: 12px solid white;
+}
+
+.page-links {
+  margin-top: 1em;
+  border-top: 1px solid #ccc;
+  padding-top: 1em;
+}
+
+
+.flash {
+  margin: 5px 0;
+  padding: 10px;
+}
+
+.flash-notice {
+  background: #baeaba;
+  color: #216a21;
+}
+
+.flash-alert {
+  background: #eac0ba;
+  color: #6a2121;
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_21_093858) do
+ActiveRecord::Schema.define(version: 2021_05_30_142310) do
 
   create_table "categories", force: :cascade do |t|
     t.string "title"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2020_08_21_093858) do
     t.string "colour"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
   create_table "rules", force: :cascade do |t|
@@ -36,7 +38,9 @@ ActiveRecord::Schema.define(version: 2020_08_21_093858) do
     t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
     t.index ["category_id"], name: "index_sources_on_category_id"
+    t.index ["user_id"], name: "index_sources_on_user_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -51,7 +55,16 @@ ActiveRecord::Schema.define(version: 2020_08_21_093858) do
     t.integer "source_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
     t.index ["source_id"], name: "index_transactions_on_source_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "provider"
+    t.string "uid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "rules", "sources"

@@ -15,7 +15,7 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/new
   def new
-    @transaction = Transaction.new
+    @transaction = current_user.transactions.new
   end
 
   # GET /transactions/1/edit
@@ -25,7 +25,7 @@ class TransactionsController < ApplicationController
   # POST /transactions
   # POST /transactions.json
   def create
-    @transaction = Transaction.new(transaction_params)
+    @transaction = current_user.transactions.new(transaction_params)
 
     respond_to do |format|
       if @transaction.save
@@ -42,12 +42,12 @@ class TransactionsController < ApplicationController
   end
 
   def parse_paste
-    @transactions = Transaction.from_paste(params[:paste])
+    @transactions = current_user.transactions.from_paste(params[:paste])
     handle_bulk_create
   end
 
   def parse_csv
-    @transactions = Transaction.from_csv(params[:csv])
+    @transactions = current_user.transactions.from_csv(params[:csv])
     handle_bulk_create
   end
 
@@ -79,7 +79,7 @@ class TransactionsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_transaction
-    @transaction = Transaction.find(params[:id])
+    @transaction = current_user.transactions.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
@@ -90,13 +90,13 @@ class TransactionsController < ApplicationController
   def set_transactions
     if params[:source_id]
       if params[:source_id] == '0'
-        @transactions = Transaction.where(source_id: nil)
+        @transactions = current_user.transactions.where(source_id: nil)
       else
-        @source = Source.find(params[:source_id])
+        @source = current_user.sources.find(params[:source_id])
         @transactions = @source.transactions
       end
     else
-      @transactions = Transaction.all
+      @transactions = current_user.transactions.all
     end
   end
 
@@ -114,7 +114,7 @@ class TransactionsController < ApplicationController
   end
 
   def handle_bulk_create
-    Transaction.sourcify(@transactions)
+    current_user.transactions.sourcify(@transactions)
 
     if params[:confirm] == 'yesplease'
       @transactions.each(&:save)

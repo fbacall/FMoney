@@ -21,7 +21,7 @@
   <div class="form-group">
     <label>
       Category
-      <%= form.select(:category_id, category_options_for_select) %>
+      <%= form.select(:category_id, category_options_for_select(form.object.category_id)) %>
     </label>
   </div>
 

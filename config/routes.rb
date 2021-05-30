@@ -19,4 +19,9 @@ Rails.application.routes.draw do
       get :monthly
     end
   end
+
+  post '/auth/:provider/callback', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
+
+  root to: 'static#home'
 end
